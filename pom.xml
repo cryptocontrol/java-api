@@ -8,6 +8,24 @@
     <artifactId>crypto-news-api</artifactId>
     <version>1.0.0</version>
 
+    <packaging>jar</packaging>
+
+    <name>CryptoControl Crypto News API</name>
+    <description>Official java client for the CryptoControl news API.</description>
+    <url>https://cryptocontrol.io/apis</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/cryptocontrol/java-api</url>
+    </scm>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
