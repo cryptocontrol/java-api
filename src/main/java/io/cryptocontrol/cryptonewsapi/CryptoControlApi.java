@@ -9,6 +9,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -21,9 +22,7 @@ public class CryptoControlApi {
     private final String USER_AGENT = "CryptoControl Java API";
     private final String HOST = "https://cryptocontrol.io/api/v1/public";
 
-    private final Gson gson = new GsonBuilder()
-            .excludeFieldsWithoutExposeAnnotation()
-            .create();
+    private final Gson gson = new GsonBuilder().create();
 
 
     public CryptoControlApi(final String apiKey) {
@@ -55,10 +54,10 @@ public class CryptoControlApi {
             HttpResponse response = httpClient.execute(request);
 
             switch (response.getStatusLine().getStatusCode()) {
-                case 401:
-                    throw new Exception("Invalid API Key");
                 case 200:
                     break;
+                case 401:
+                    throw new Exception("Invalid API Key");
                 default:
                     throw new Exception("Bad response from the CryptoControl server");
             }
@@ -76,7 +75,7 @@ public class CryptoControlApi {
      *
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
-    public void getTopNews(OnResponseHandler<Articles> callback) {
+    public void getTopNews(OnResponseHandler<List<Article>> callback) {
         fetch("/news", callback, Articles.class);
     }
 
@@ -86,7 +85,7 @@ public class CryptoControlApi {
      *
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
-    public void getLatestNews(OnResponseHandler<Articles> callback) {
+    public void getLatestNews(OnResponseHandler<List<Article>> callback) {
         fetch("/news?latest=true", callback, Articles.class);
     }
 
@@ -107,7 +106,7 @@ public class CryptoControlApi {
      * @param coinName The coin name to get news for.
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
-    public void getTopNewsByCoin(String coinName, OnResponseHandler<Articles> callback) {
+    public void getTopNewsByCoin(String coinName, OnResponseHandler<List<Article>> callback) {
         fetch("/news/coin/" + coinName, callback, Articles.class);
     }
 
@@ -118,7 +117,7 @@ public class CryptoControlApi {
      * @param coinName The coin name to get news for.
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
-    public void getLatestNewsByCoin(String coinName, OnResponseHandler<Articles> callback) {
+    public void getLatestNewsByCoin(String coinName, OnResponseHandler<List<Article>> callback) {
         fetch("/news/coin/" + coinName + "?latest=true", callback, Articles.class);
     }
 
@@ -134,7 +133,7 @@ public class CryptoControlApi {
     }
 
 
-    interface OnResponseHandler<T> {
+    public static interface OnResponseHandler<T> {
         void onSuccess(T body);
 
         void onFailure(Exception e);
