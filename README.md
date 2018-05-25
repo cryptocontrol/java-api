@@ -24,3 +24,13 @@ api.getTopNews(new CryptoControlApi.OnResponseHandler<List<Article>>() {
 });
 
 ```
+
+
+## Available Functions
+
+- **getTopNews()** Get the top news articles from the CryptoControl News API.
+- **getLatestNews()** Get the latest news articles from the CryptoControl News API.
+- **getTopNewsByCategory()** Get news articles grouped by category from the CryptoControl News API.
+- **getTopNewsByCoin(coin: String)** Get the top news articles for a specific coin from the CryptoControl API.
+- **getLatestNewsByCoin(coin: String)** Get the latest news articles for a specific coin from the CryptoControl News API.
+- **getTopNewsByCoinCategory(coin: String)** Get news articles grouped by category for a specific coin from the CryptoControl News API.
