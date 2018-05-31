@@ -1,13 +1,26 @@
 Java Client - CryptoCryptol Crypto News Api
 ===========================================
 
-This document details a java client for the CryptoControl News API.
+Official Java client for the [CryptoControl.io](https://cryptocontrol.io) API. The CryptoControl java client lets developers access rich formatted articles from cryptonews sources from all around the world.
+
+## Installation
+Add this dependency into your `pom.xml` file.
+
+```xml
+<dependency>
+    <groupId>io.cryptocontrol</groupId>
+    <artifactId>crypto-news-api</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
 
 ## Usage
+First make sure that you've recieved an API key by visiting [https://cryptocontrol.io/apis](https://cryptocontrol.io/apis). With the API key, you can write the following code.
+
+**NOTE**: API access is rate-limited to 5 req/sec and 10,000 req/hour. It'll be a good idea to cache your API calls.
 
 ```java
-
-
 CryptoControlApi api = new CryptoControlApi("API_KEY");
 
 api.getTopNews(new CryptoControlApi.OnResponseHandler<List<Article>>() {
