@@ -1,5 +1,5 @@
-import io.cryptocontrol.cryptonewsapi.Article;
-import io.cryptocontrol.cryptonewsapi.CategoryResponse;
+import io.cryptocontrol.cryptonewsapi.models.Article;
+import io.cryptocontrol.cryptonewsapi.models.CategoryResponse;
 import io.cryptocontrol.cryptonewsapi.CryptoControlApi;
 
 import java.util.List;

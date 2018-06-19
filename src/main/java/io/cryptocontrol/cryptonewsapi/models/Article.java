@@ -1,4 +1,4 @@
-package io.cryptocontrol.cryptonewsapi;
+package io.cryptocontrol.cryptonewsapi.models;
 
 import java.util.ArrayList;
 import java.util.List;
