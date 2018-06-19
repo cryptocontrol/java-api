@@ -2,9 +2,7 @@ package io.cryptocontrol.cryptonewsapi;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.cryptocontrol.cryptonewsapi.models.Article;
-import io.cryptocontrol.cryptonewsapi.models.Articles;
-import io.cryptocontrol.cryptonewsapi.models.CategoryResponse;
+import io.cryptocontrol.cryptonewsapi.models.*;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -88,7 +86,7 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopNews(OnResponseHandler<List<Article>> callback) {
-        fetch("/news", callback, Articles.class);
+        fetch("/news", callback, Article.ArticleList.class);
     }
 
 
@@ -98,7 +96,7 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestNews(OnResponseHandler<List<Article>> callback) {
-        fetch("/news?latest=true", callback, Articles.class);
+        fetch("/news?latest=true", callback, Article.ArticleList.class);
     }
 
 
@@ -119,7 +117,7 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopNewsByCoin(String coinName, OnResponseHandler<List<Article>> callback) {
-        fetch("/news/coin/" + coinName, callback, Articles.class);
+        fetch("/news/coin/" + coinName, callback, Article.ArticleList.class);
     }
 
 
@@ -130,7 +128,7 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestNewsByCoin(String coinName, OnResponseHandler<List<Article>> callback) {
-        fetch("/news/coin/" + coinName + "?latest=true", callback, Articles.class);
+        fetch("/news/coin/" + coinName + "?latest=true", callback, Article.ArticleList.class);
     }
 
 
@@ -145,7 +143,73 @@ public class CryptoControlApi {
     }
 
 
-    public static interface OnResponseHandler<T> {
+    /**
+     * Get the top reddit posts for a specific coin from the CryptoControl API.
+     *
+     * @param coinName The coin name to get reddit items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopRedditPostsByCoin(String coinName, OnResponseHandler<List<RedditPost>> callback) {
+        fetch("/reddit/coin/" + coinName, callback, RedditPost.RedditPostList.class);
+    }
+
+
+    /**
+     * Get the latest reddit posts for a specific coin from the CryptoControl API.
+     *
+     * @param coinName The coin name to get reddit items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestRedditPostsByCoin(String coinName, OnResponseHandler<List<RedditPost>> callback) {
+        fetch("/reddit/coin/" + coinName + "?latest=true", callback, RedditPost.RedditPostList.class);
+    }
+
+
+    /**
+     * Get the latest tweets for a specific coin from the CryptoControl API.
+     *
+     * @param coinName The coin name to get reddit items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopTweetsByCoin(String coinName, OnResponseHandler<List<Tweet>> callback) {
+        fetch("/tweets/coin/" + coinName, callback, Tweet.TweetList.class);
+    }
+
+
+    /**
+     * Get the top tweets for a specific coin from the CryptoControl API.
+     *
+     * @param coinName The coin name to get tweets for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestTweetsByCoin(String coinName, OnResponseHandler<List<Tweet>> callback) {
+        fetch("/tweets/coin/" + coinName + "?latest=true", callback, Tweet.TweetList.class);
+    }
+
+
+    /**
+     * Get feed (articles/tweets/reddit) for a specific coin from the CryptoControl API.
+     *
+     * @param coinName The coin name to get the feed items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopFeedByCoin(String coinName, OnResponseHandler<List<Feed>> callback) {
+        fetch("/feed/coin/" + coinName, callback, Feed.FeedList.class);
+    }
+
+
+    /**
+     * Get feed (articles/tweets/reddit) for a specific coin from the CryptoControl API.
+     *
+     * @param coinName The coin name to get the feed for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestFeedByCoin(String coinName, OnResponseHandler<List<Feed>> callback) {
+        fetch("/feed/coin/" + coinName + "?latest=true", callback, Feed.FeedList.class);
+    }
+
+
+    public interface OnResponseHandler<T> {
         void onSuccess(T body);
 
         void onFailure(Exception e);

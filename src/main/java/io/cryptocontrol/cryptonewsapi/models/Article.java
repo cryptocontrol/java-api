@@ -146,4 +146,8 @@ public class Article {
             return tradingSymbol;
         }
     }
+
+
+    public static class ArticleList extends ArrayList<Article> {
+    }
 }

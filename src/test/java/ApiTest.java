@@ -1,5 +1,4 @@
-import io.cryptocontrol.cryptonewsapi.models.Article;
-import io.cryptocontrol.cryptonewsapi.models.CategoryResponse;
+import io.cryptocontrol.cryptonewsapi.models.*;
 import io.cryptocontrol.cryptonewsapi.CryptoControlApi;
 
 import java.util.List;
@@ -69,6 +68,48 @@ public class ApiTest {
             @Override public void onSuccess(CategoryResponse body) {
                 for (Article article : body.getAnalysisArticles()) {
                     System.out.println(article.getTitle());
+                }
+            }
+
+
+            @Override public void onFailure(Exception e) {
+
+            }
+        });
+
+
+        api.getTopRedditPostsByCoin("bitcoin", new CryptoControlApi.OnResponseHandler<List<RedditPost>>() {
+            @Override public void onSuccess(List<RedditPost> body) {
+                for(RedditPost post: body) {
+                    System.out.println(post.getTitle());
+                }
+            }
+
+
+            @Override public void onFailure(Exception e) {
+
+            }
+        });
+
+
+        api.getTopTweetsByCoin("bitcoin", new CryptoControlApi.OnResponseHandler<List<Tweet>>() {
+            @Override public void onSuccess(List<Tweet> body) {
+                for(Tweet post: body) {
+                    System.out.println(post.getId());
+                }
+            }
+
+
+            @Override public void onFailure(Exception e) {
+
+            }
+        });
+
+
+        api.getLatestFeedByCoin("bitcoin", new CryptoControlApi.OnResponseHandler<List<Feed>>() {
+            @Override public void onSuccess(List<Feed> body) {
+                for(Feed post: body) {
+                    System.out.println(post.getType());
                 }
             }
 
