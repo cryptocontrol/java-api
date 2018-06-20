@@ -14,6 +14,8 @@ Add this dependency into your `pom.xml` file.
 </dependency>
 ```
 
+or use with gradle
+
 ```
 compile 'io.cryptocontrol:crypto-news-api:1.1.0'
 ```
