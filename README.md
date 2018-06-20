@@ -10,8 +10,12 @@ Add this dependency into your `pom.xml` file.
 <dependency>
     <groupId>io.cryptocontrol</groupId>
     <artifactId>crypto-news-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
+```
+
+```
+compile 'io.cryptocontrol:crypto-news-api:1.1.0'
 ```
 
 
@@ -41,9 +45,15 @@ api.getTopNews(new CryptoControlApi.OnResponseHandler<List<Article>>() {
 
 ## Available Functions
 
-- **getTopNews()** Get the top news articles from the CryptoControl News API.
-- **getLatestNews()** Get the latest news articles from the CryptoControl News API.
-- **getTopNewsByCategory()** Get news articles grouped by category from the CryptoControl News API.
+- **getTopNews()** Get the top news articles.
+- **getLatestNews()** Get the latest news articles.
+- **getTopNewsByCategory()** Get news articles grouped by category.
 - **getTopNewsByCoin(coin: String)** Get the top news articles for a specific coin from the CryptoControl API.
-- **getLatestNewsByCoin(coin: String)** Get the latest news articles for a specific coin from the CryptoControl News API.
-- **getTopNewsByCoinCategory(coin: String)** Get news articles grouped by category for a specific coin from the CryptoControl News API.
+- **getLatestNewsByCoin(coin: String)** Get the latest news articles for a specific coin.
+- **getTopNewsByCoinCategory(coin: String)** Get news articles grouped by category for a specific coin.
+- **getTopRedditPostsByCoin(coin: String)** Get top reddit posts for a particular coin
+- **getLatestRedditPostsByCoin(coin: String)** Get latest reddit posts for a particular coin
+- **getTopTweetsByCoin(coin: String)** Get top tweets for a particular coin
+- **getLatestTweetsByCoin(coin: String)** Get latest tweets for a particular coin
+- **getTopFeedByCoin(coin: String)** Get a combined feed (reddit/tweets/articles) for a particular coin (sorted by time)
+- **getLatestFeedByCoin(coin: String)** Get a combined feed (reddit/tweets/articles) for a particular coin (sorted by relevance)
