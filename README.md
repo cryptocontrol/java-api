@@ -1,4 +1,4 @@
-Java Client - CryptoCryptol Crypto News Api
+Java Client - CryptoControl Crypto News Api
 ===========================================
 
 Official Java client for the [CryptoControl.io](https://cryptocontrol.io) API. The CryptoControl java client lets developers access rich formatted articles from cryptonews sources from all around the world.
