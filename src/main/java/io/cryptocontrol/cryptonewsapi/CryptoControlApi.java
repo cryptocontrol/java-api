@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class CryptoControlApi {
     private final String apiKey;
-    private final String USER_AGENT = "CryptoControl Java API v1.1.0";
+    private final String USER_AGENT = "CryptoControl Java API v1.2.0";
     private final String HOST = "https://cryptocontrol.io/api/v1/public";
 
     private final Gson gson = new GsonBuilder().create();
@@ -188,7 +188,7 @@ public class CryptoControlApi {
 
 
     /**
-     * Get feed (articles/tweets/reddit) for a specific coin from the CryptoControl API.
+     * Get a single feed (articles/tweets/reddit) for a specific coin from the CryptoControl API.
      *
      * @param coinName The coin name to get the feed items for.
      * @param callback A callback fn returning the response from the CryptoControl API.
@@ -199,13 +199,35 @@ public class CryptoControlApi {
 
 
     /**
-     * Get feed (articles/tweets/reddit) for a specific coin from the CryptoControl API.
+     * Get a single feed (articles/tweets/reddit) for a specific coin from the CryptoControl API.
      *
      * @param coinName The coin name to get the feed for.
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestFeedByCoin(String coinName, OnResponseHandler<List<Feed>> callback) {
         fetch("/feed/coin/" + coinName + "?latest=true", callback, Feed.FeedList.class);
+    }
+
+
+    /**
+     * Get articles/tweets/reddit for a specific coin from the CryptoControl API.
+     *
+     * @param coinName The coin name to get the feed items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopItemsByCoin(String coinName, OnResponseHandler<CombinedFeedResponse> callback) {
+        fetch("/all/coin/" + coinName, callback, CombinedFeedResponse.class);
+    }
+
+
+    /**
+     * Get articles/tweets/reddit for a specific coin from the CryptoControl API.
+     *
+     * @param coinName The coin name to get the feed for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestItemsByCoin(String coinName, OnResponseHandler<CombinedFeedResponse> callback) {
+        fetch("/all/coin/" + coinName + "?latest=true", callback, CombinedFeedResponse.class);
     }
 
 

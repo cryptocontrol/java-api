@@ -9,24 +9,30 @@ import java.util.List;
  * @author enamakel@cryptocontrol.io
  */
 public class Article {
-    String _id;
-    String publishedAt;
-    Double hotness;
-    Double activityHotness;
-    String primaryCategory;
-    Integer words;
-    String description;
-    String title;
-    String url;
-    String originalImageUrl;
+    private String _id;
+    private String publishedAt;
+    private Double hotness;
+    private Double activityHotness;
+    private String primaryCategory;
+    private Integer words;
+    private String description;
+    private String title;
+    private String url;
+    private String originalImageUrl;
+    private String sourceDomain;
+    private String thumbnail;
 
-    String thumbnail;
-    List<Coin> coins = new ArrayList<Coin>();
-    List<SimilarArticle> similarArticles = new ArrayList<SimilarArticle>();
+    private List<Coin> coins = new ArrayList<Coin>();
+    private List<SimilarArticle> similarArticles = new ArrayList<SimilarArticle>();
 
 
     public String getId() {
         return _id;
+    }
+
+
+    public String getSourceDomain() {
+        return sourceDomain;
     }
 
 
@@ -91,9 +97,10 @@ public class Article {
 
 
     public static class SimilarArticle {
-        String _id;
-        String publishedAt;
-        String title;
+        private String _id;
+        private String publishedAt;
+        private String title;
+        private String url;
 
 
         public String getId() {
@@ -114,17 +121,14 @@ public class Article {
         public String getUrl() {
             return url;
         }
-
-
-        String url;
     }
 
 
     public static class Coin {
-        String _id;
-        String name;
-        String slug;
-        String tradingSymbol;
+        private String _id;
+        private String name;
+        private String slug;
+        private String tradingSymbol;
 
 
         public String getId() {

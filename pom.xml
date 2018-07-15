@@ -6,13 +6,13 @@
 
     <groupId>io.cryptocontrol</groupId>
     <artifactId>crypto-news-api</artifactId>
-    <version>1.1.0</version>
+    <version>2.0.0</version>
 
     <packaging>jar</packaging>
 
     <name>CryptoControl Crypto News API</name>
     <description>Official java client for the CryptoControl news API.</description>
-    <url>https://cryptocontrol.io/apis</url>
+    <url>https://cryptocontrol.io/en/apis</url>
 
     <licenses>
         <license>

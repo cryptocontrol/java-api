@@ -6,17 +6,17 @@ import java.util.ArrayList;
  * @author enamakel@eshe.io
  */
 public class RedditPost {
-    Boolean isSelf;
-    Double score;
-    Long comments;
-    Long upvotes;
-    Number downvotes;
-    String description;
-    String id;
-    String publishedAt;
-    String subreddit;
-    String title;
-    String url;
+    private Boolean isSelf;
+    private Double score;
+    private Long comments;
+    private Long upvotes;
+    private Number downvotes;
+    private String description;
+    private String id;
+    private String publishedAt;
+    private String subreddit;
+    private String title;
+    private String url;
 
 
     public Boolean getSelf() {

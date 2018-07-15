@@ -7,18 +7,24 @@ import java.util.List;
  * @author enamakel@eshe.io
  */
 public class Tweet {
-    String text;
-    String username;
-    String id;
-    String publishedAt;
-    Boolean isRetweeted;
-    Number retweetCount;
-    Number favoriteCount;
+    private String text;
+    private String username;
+    private String id;
+    private String publishedAt;
+    private String url;
+    private Boolean isRetweeted;
+    private Number retweetCount;
+    private Number favoriteCount;
 
-    List<String> links;
-    List<String> hashtags;
-    List<String> mentions;
-    List<String> symbols;
+    private List<String> links;
+    private List<String> hashtags;
+    private List<String> mentions;
+    private List<String> symbols;
+
+
+    public String getUrl() {
+        return url;
+    }
 
 
     public List<String> getSymbols() {
