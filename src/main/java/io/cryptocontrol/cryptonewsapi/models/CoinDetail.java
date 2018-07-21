@@ -41,7 +41,7 @@ public class CoinDetail {
     }
 
 
-    private class Link {
+    public static class Link {
         String type;
         String name;
         String link;

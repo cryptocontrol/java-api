@@ -21,9 +21,10 @@ public class Article {
     private String thumbnail;
     private String title;
     private String url;
+    private Source source;
 
-    private List<Coin> coins = new ArrayList<Coin>();
-    private List<SimilarArticle> similarArticles = new ArrayList<SimilarArticle>();
+    private List<Coin> coins = new ArrayList<>();
+    private List<SimilarArticle> similarArticles = new ArrayList<>();
 
 
     public String getId() {
@@ -33,6 +34,11 @@ public class Article {
 
     public String getSourceDomain() {
         return sourceDomain;
+    }
+
+
+    public Source getSource() {
+        return source;
     }
 
 
@@ -102,6 +108,7 @@ public class Article {
         private String title;
         private String url;
         private String sourceDomain;
+        private Source source;
 
 
         public String getId() {
@@ -126,6 +133,11 @@ public class Article {
 
         public String getSourceDomain() {
             return sourceDomain;
+        }
+
+
+        public Source getSource() {
+            return source;
         }
     }
 
@@ -154,6 +166,28 @@ public class Article {
 
         public String getTradingSymbol() {
             return tradingSymbol;
+        }
+    }
+
+
+    public static class Source {
+        private String _id;
+        private String name;
+        private String url;
+
+
+        public String getId() {
+            return _id;
+        }
+
+
+        public String getName() {
+            return name;
+        }
+
+
+        public String getUrl() {
+            return url;
         }
     }
 
