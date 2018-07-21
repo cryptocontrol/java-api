@@ -119,7 +119,7 @@ api.getCoinDetails("ethereum", new CryptoControlApi.OnResponseHandler<CoinDetail
             "_id": "5b363b525b113200191a1d5f",
             "publishedAt": "2018-06-29T13:42:44.000Z",
             "title": "Op-Ed: Challenge of Mining Centralization Unveils Bitcoin’s Elegant Design",
-            "url": "https://716cb12b.ngrok.io/r/api/article/5b363b525b113200191a1d5f?ref=5ac11440ec0af7be35528459",
+            "url": "https://cryptocontrol.io/r/api/article/5b363b525b113200191a1d5f?ref=5ac11440ec0af7be35528459",
             "source": {
                 "_id": "59d8c361ef8bf95cc2bfb66f",
                 "name": "Bitcoin Magazine",
@@ -132,7 +132,7 @@ api.getCoinDetails("ethereum", new CryptoControlApi.OnResponseHandler<CoinDetail
             "_id": "5b3865405c5681000f2f7407",
             "publishedAt": "2018-06-30T14:58:00.000Z",
             "title": "Arbitration on a Governed Blockchain: EOS’ Crisis of Dispute Resolution",
-            "url": "https://716cb12b.ngrok.io/r/api/article/5b3865405c5681000f2f7407?ref=5ac11440ec0af7be35528459",
+            "url": "https://cryptocontrol.io/r/api/article/5b3865405c5681000f2f7407?ref=5ac11440ec0af7be35528459",
             "source": {
                 "_id": "59d70be3ef8bf95cc2aa2b4f",
                 "name": "CoinTelegraph",
@@ -160,13 +160,13 @@ api.getCoinDetails("ethereum", new CryptoControlApi.OnResponseHandler<CoinDetail
     "description": "The EOS governance disaster offers a strong reminder of how entrenched human mistrust can be difficult to overcome.",
     "publishedAt": "2018-07-02T12:00:27.000Z",
     "title": "It's Too Soon for On-Chain Governance - CoinDesk",
-    "url": "https://716cb12b.ngrok.io/r/api/article/5b3a2e1b104844000fd64e28?ref=5ac11440ec0af7be35528459",
+    "url": "https://cryptocontrol.io/r/api/article/5b3a2e1b104844000fd64e28?ref=5ac11440ec0af7be35528459",
     "source": {
         "_id": "59ce11393a44cf289a9a71f5",
         "name": "CoinDesk",
         "url": "http://coindesk.com"
     },
-    "thumbnail": "https://716cb12b.ngrok.io/r/thumbnail/5b3a2e1b104844000fd64e28?ref=5ac11440ec0af7be35528459",
+    "thumbnail": "https://cryptocontrol.io/r/thumbnail/5b3a2e1b104844000fd64e28?ref=5ac11440ec0af7be35528459",
     "sourceName": "CoinDesk",
     "sourceUrl": "http://coindesk.com",
     "sourceDomain": "coindesk.com",
