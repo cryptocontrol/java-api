@@ -9,18 +9,18 @@ import java.util.List;
  * @author enamakel@cryptocontrol.io
  */
 public class Article {
-    private String _id;
-    private String publishedAt;
-    private Double hotness;
     private Double activityHotness;
-    private String primaryCategory;
+    private Double hotness;
     private Integer words;
+    private String _id;
     private String description;
-    private String title;
-    private String url;
     private String originalImageUrl;
+    private String primaryCategory;
+    private String publishedAt;
     private String sourceDomain;
     private String thumbnail;
+    private String title;
+    private String url;
 
     private List<Coin> coins = new ArrayList<Coin>();
     private List<SimilarArticle> similarArticles = new ArrayList<SimilarArticle>();

@@ -2,6 +2,8 @@ package io.cryptocontrol.cryptonewsapi;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.cryptocontrol.cryptonewsapi.exceptions.BadResponseException;
+import io.cryptocontrol.cryptonewsapi.exceptions.InvalidAPIKeyException;
 import io.cryptocontrol.cryptonewsapi.models.*;
 
 import java.io.BufferedInputStream;
@@ -94,9 +96,9 @@ public class CryptoControlApi {
                 case 200:
                     break;
                 case 401:
-                    throw new Exception("Invalid API Key");
+                    throw new InvalidAPIKeyException();
                 default:
-                    throw new Exception("Bad response from the CryptoControl server");
+                    throw new BadResponseException();
             }
 
 
@@ -104,8 +106,7 @@ public class CryptoControlApi {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
             String line = "";
 
-            while ((line = bufferedReader.readLine()) != null)
-                jsonStr += line;
+            while ((line = bufferedReader.readLine()) != null) jsonStr += line;
             in.close();
 
             callback.onSuccess(gson.fromJson(jsonStr, TypeofT));
@@ -303,7 +304,7 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopTweetsByCoin(String coinName, OnResponseHandler<List<Tweet>> callback) {
-        fetch("/tweets/coin/" + coinName, Language.ENGLISH, callback, Tweet.TweetList.class);
+        getTopTweetsByCoin(Language.ENGLISH, coinName, callback);
     }
 
 
@@ -372,7 +373,7 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestFeedByCoin(String coinName, OnResponseHandler<List<Feed>> callback) {
-        fetch("/feed/coin/" + coinName + "?latest=true", Language.ENGLISH, callback, Feed.FeedList.class);
+        getLatestFeedByCoin(Language.ENGLISH, coinName, callback);
     }
 
 
@@ -395,7 +396,7 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopItemsByCoin(String coinName, OnResponseHandler<CombinedFeedResponse> callback) {
-        fetch("/all/coin/" + coinName, Language.ENGLISH, callback, CombinedFeedResponse.class);
+        getTopItemsByCoin(Language.ENGLISH, coinName, callback);
     }
 
 
@@ -418,7 +419,7 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestItemsByCoin(String coinName, OnResponseHandler<CombinedFeedResponse> callback) {
-        fetch("/all/coin/" + coinName + "?latest=true", Language.ENGLISH, callback, CombinedFeedResponse.class);
+        getLatestItemsByCoin(Language.ENGLISH, coinName, callback);
     }
 
 

@@ -6,10 +6,10 @@ import java.util.ArrayList;
  * @author enamakel@eshe.io
  */
 public class Feed {
-    String type;
-    RedditPost reddit;
-    Tweet tweet;
     Article article;
+    RedditPost reddit;
+    String type;
+    Tweet tweet;
 
 
     public String getType() {

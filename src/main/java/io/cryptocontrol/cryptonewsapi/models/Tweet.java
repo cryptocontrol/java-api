@@ -7,17 +7,17 @@ import java.util.List;
  * @author enamakel@eshe.io
  */
 public class Tweet {
-    private String text;
-    private String username;
+    private Boolean isRetweeted;
+    private Number favoriteCount;
+    private Number retweetCount;
     private String id;
     private String publishedAt;
+    private String text;
     private String url;
-    private Boolean isRetweeted;
-    private Number retweetCount;
-    private Number favoriteCount;
+    private String username;
 
-    private List<String> links;
     private List<String> hashtags;
+    private List<String> links;
     private List<String> mentions;
     private List<String> symbols;
 
