@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+
 /**
  * Interface to the CryptoControl API.
  *
@@ -20,12 +21,15 @@ import java.util.List;
  */
 public class CryptoControlApi {
     private final String apiKey;
-    private final String USER_AGENT = "CryptoControl Java API v1.2.0";
-    private final String HOST = "https://cryptocontrol.io/api/v1/public";
-
+    private String proxyURL = null;
     private final Gson gson = new GsonBuilder().create();
 
 
+    /**
+     * A simple contructor which sets a API key
+     *
+     * @param apiKey The CryptoControl.io API key
+     */
     public CryptoControlApi(final String apiKey) {
         if (apiKey == null)
             throw new Error("No API key found. Register for an API key at https://cryptocontrol.io/apis");
@@ -35,22 +39,55 @@ public class CryptoControlApi {
 
 
     /**
+     * A contructor which allows a proxy URL to be set. This would be useful if you'd like to setup a proxy URL
+     *
+     * @param apiKey   The CryptoControl.io API key
+     * @param proxyURL The URL to proxy to
+     */
+    public CryptoControlApi(final String apiKey, final String proxyURL) {
+        this(apiKey);
+        this.proxyURL = proxyURL;
+    }
+
+
+    /**
      * Helper function to make a request to the CryptoControl server.
      *
      * @param path     The URL to call
+     * @param lang     The language to choose from
      * @param callback A callback fn returning the response from the CryptoControl API.
      * @param TypeofT  The type of the object that needs to be returned.
      */
-    private void fetch(String path, OnResponseHandler callback, Type TypeofT) {
+    private void fetch(String path, Language lang, OnResponseHandler callback, Type TypeofT) {
         String jsonStr = "";
         HttpURLConnection urlConnection = null;
 
+        String langSlug;
+        switch (lang) {
+            default:
+            case ENGLISH:
+                langSlug = "en";
+                break;
+            case RUSSIAN:
+                langSlug = "ru";
+                break;
+        }
+
+
         try {
-            URL url = new URL(HOST + path);
+            String HOST = proxyURL != null ? proxyURL : "https://cryptocontrol.io/api/v1/public";
+            URL url = new URL(HOST + path + (path.contains("?") ? "&" : "?") + "lang=" + langSlug);
+
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Content-Type", "application/json");
+
+            // set the api key
             urlConnection.setRequestProperty("x-api-key", apiKey);
+
+            // Set the user agent
+            String USER_AGENT = "CryptoControl Java API v2.1.0";
             urlConnection.setRequestProperty("user-agent", USER_AGENT);
+
             int code = urlConnection.getResponseCode();
 
             switch (code) {
@@ -83,20 +120,42 @@ public class CryptoControlApi {
     /**
      * Get the top news articles from the CryptoControl News API.
      *
-     * @param callback A callback fn returning the response from the CryptoControl API.
+     * @param callback A callback fn returning a list of articles
      */
     public void getTopNews(OnResponseHandler<List<Article>> callback) {
-        fetch("/news", callback, Article.ArticleList.class);
+        getTopNews(Language.ENGLISH, callback);
+    }
+
+
+    /**
+     * Get the top news articles from the CryptoControl News API.
+     *
+     * @param lang     The language to choose from
+     * @param callback A callback fn returning a list of articles
+     */
+    public void getTopNews(Language lang, OnResponseHandler<List<Article>> callback) {
+        fetch("/news", lang, callback, Article.ArticleList.class);
     }
 
 
     /**
      * Get the latest news articles from the CryptoControl News API.
      *
-     * @param callback A callback fn returning the response from the CryptoControl API.
+     * @param callback A callback fn returning a list of articles
      */
     public void getLatestNews(OnResponseHandler<List<Article>> callback) {
-        fetch("/news?latest=true", callback, Article.ArticleList.class);
+        getLatestNews(Language.ENGLISH, callback);
+    }
+
+
+    /**
+     * Get the latest news articles from the CryptoControl News API.
+     *
+     * @param lang     The language to choose from
+     * @param callback A callback fn returning a list of articles
+     */
+    public void getLatestNews(Language lang, OnResponseHandler<List<Article>> callback) {
+        fetch("/news?latest=true", lang, callback, Article.ArticleList.class);
     }
 
 
@@ -106,7 +165,18 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopNewsByCategory(OnResponseHandler<CategoryResponse> callback) {
-        fetch("/news/category", callback, CategoryResponse.class);
+        getTopNewsByCategory(Language.ENGLISH, callback);
+    }
+
+
+    /**
+     * Get news articles grouped by category from the CryptoControl News API.
+     *
+     * @param lang     The language to choose from
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopNewsByCategory(Language lang, OnResponseHandler<CategoryResponse> callback) {
+        fetch("/news/category", lang, callback, CategoryResponse.class);
     }
 
 
@@ -117,7 +187,19 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopNewsByCoin(String coinName, OnResponseHandler<List<Article>> callback) {
-        fetch("/news/coin/" + coinName, callback, Article.ArticleList.class);
+        getTopNewsByCoin(Language.ENGLISH, coinName, callback);
+    }
+
+
+    /**
+     * Get the top news articles for a specific coin from the CryptoControl API.
+     *
+     * @param coinName The coin name to get news for.
+     * @param lang     The language to choose from
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopNewsByCoin(Language lang, String coinName, OnResponseHandler<List<Article>> callback) {
+        fetch("/news/coin/" + coinName, lang, callback, Article.ArticleList.class);
     }
 
 
@@ -128,7 +210,19 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestNewsByCoin(String coinName, OnResponseHandler<List<Article>> callback) {
-        fetch("/news/coin/" + coinName + "?latest=true", callback, Article.ArticleList.class);
+        getLatestNewsByCoin(Language.ENGLISH, coinName, callback);
+    }
+
+
+    /**
+     * Get the latest news articles for a specific coin from the CryptoControl News API.
+     *
+     * @param lang     The language to choose from
+     * @param coinName The coin name to get news for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestNewsByCoin(Language lang, String coinName, OnResponseHandler<List<Article>> callback) {
+        fetch("/news/coin/" + coinName + "?latest=true", lang, callback, Article.ArticleList.class);
     }
 
 
@@ -139,7 +233,19 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopNewsByCoinCategory(String coinName, OnResponseHandler<CategoryResponse> callback) {
-        fetch("/news/coin/" + coinName + "/category", callback, CategoryResponse.class);
+        getTopNewsByCoinCategory(Language.ENGLISH, coinName, callback);
+    }
+
+
+    /**
+     * Get news articles grouped by category for a specific coin from the CryptoControl News API.
+     *
+     * @param lang     The language to choose from
+     * @param coinName The coin name to get news for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopNewsByCoinCategory(Language lang, String coinName, OnResponseHandler<CategoryResponse> callback) {
+        fetch("/news/coin/" + coinName + "/category", lang, callback, CategoryResponse.class);
     }
 
 
@@ -150,7 +256,19 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopRedditPostsByCoin(String coinName, OnResponseHandler<List<RedditPost>> callback) {
-        fetch("/reddit/coin/" + coinName, callback, RedditPost.RedditPostList.class);
+        getTopRedditPostsByCoin(Language.ENGLISH, coinName, callback);
+    }
+
+
+    /**
+     * Get the top reddit posts for a specific coin from the CryptoControl API.
+     *
+     * @param lang     The language to choose from
+     * @param coinName The coin name to get reddit items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopRedditPostsByCoin(Language lang, String coinName, OnResponseHandler<List<RedditPost>> callback) {
+        fetch("/reddit/coin/" + coinName, lang, callback, RedditPost.RedditPostList.class);
     }
 
 
@@ -161,7 +279,20 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestRedditPostsByCoin(String coinName, OnResponseHandler<List<RedditPost>> callback) {
-        fetch("/reddit/coin/" + coinName + "?latest=true", callback, RedditPost.RedditPostList.class);
+        getLatestRedditPostsByCoin(Language.ENGLISH, coinName, callback);
+    }
+
+
+    /**
+     * Get the latest reddit posts for a specific coin from the CryptoControl API.
+     *
+     * @param lang     The language to choose from
+     * @param coinName The coin name to get reddit items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestRedditPostsByCoin(Language lang, String coinName,
+                                           OnResponseHandler<List<RedditPost>> callback) {
+        fetch("/reddit/coin/" + coinName + "?latest=true", lang, callback, RedditPost.RedditPostList.class);
     }
 
 
@@ -172,7 +303,19 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopTweetsByCoin(String coinName, OnResponseHandler<List<Tweet>> callback) {
-        fetch("/tweets/coin/" + coinName, callback, Tweet.TweetList.class);
+        fetch("/tweets/coin/" + coinName, Language.ENGLISH, callback, Tweet.TweetList.class);
+    }
+
+
+    /**
+     * Get the latest tweets for a specific coin from the CryptoControl API.
+     *
+     * @param lang     The language to choose from
+     * @param coinName The coin name to get reddit items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopTweetsByCoin(Language lang, String coinName, OnResponseHandler<List<Tweet>> callback) {
+        fetch("/tweets/coin/" + coinName, lang, callback, Tweet.TweetList.class);
     }
 
 
@@ -183,18 +326,42 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestTweetsByCoin(String coinName, OnResponseHandler<List<Tweet>> callback) {
-        fetch("/tweets/coin/" + coinName + "?latest=true", callback, Tweet.TweetList.class);
+        getLatestTweetsByCoin(Language.ENGLISH, coinName, callback);
     }
 
 
     /**
-     * Get a single feed (articles/tweets/reddit) for a specific coin from the CryptoControl API.
+     * Get the top tweets for a specific coin from the CryptoControl API.
+     *
+     * @param lang     The language to choose from
+     * @param coinName The coin name to get tweets for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestTweetsByCoin(Language lang, String coinName, OnResponseHandler<List<Tweet>> callback) {
+        fetch("/tweets/coin/" + coinName + "?latest=true", lang, callback, Tweet.TweetList.class);
+    }
+
+
+    /**
+     * Get a single feed (articles/tweets/reddit) in english for a specific coin from the CryptoControl API.
      *
      * @param coinName The coin name to get the feed items for.
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopFeedByCoin(String coinName, OnResponseHandler<List<Feed>> callback) {
-        fetch("/feed/coin/" + coinName, callback, Feed.FeedList.class);
+        getTopFeedByCoin(Language.ENGLISH, coinName, callback);
+    }
+
+
+    /**
+     * Get a single feed (articles/tweets/reddit) in english for a specific coin from the CryptoControl API.
+     *
+     * @param lang     The language of the feed
+     * @param coinName The coin name to get the feed items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopFeedByCoin(Language lang, String coinName, OnResponseHandler<List<Feed>> callback) {
+        fetch("/feed/coin/" + coinName, lang, callback, Feed.FeedList.class);
     }
 
 
@@ -205,7 +372,19 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestFeedByCoin(String coinName, OnResponseHandler<List<Feed>> callback) {
-        fetch("/feed/coin/" + coinName + "?latest=true", callback, Feed.FeedList.class);
+        fetch("/feed/coin/" + coinName + "?latest=true", Language.ENGLISH, callback, Feed.FeedList.class);
+    }
+
+
+    /**
+     * Get a single feed (articles/tweets/reddit) for a specific coin from the CryptoControl API.
+     *
+     * @param lang     The language to choose from
+     * @param coinName The coin name to get the feed for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestFeedByCoin(Language lang, String coinName, OnResponseHandler<List<Feed>> callback) {
+        fetch("/feed/coin/" + coinName + "?latest=true", lang, callback, Feed.FeedList.class);
     }
 
 
@@ -216,7 +395,19 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getTopItemsByCoin(String coinName, OnResponseHandler<CombinedFeedResponse> callback) {
-        fetch("/all/coin/" + coinName, callback, CombinedFeedResponse.class);
+        fetch("/all/coin/" + coinName, Language.ENGLISH, callback, CombinedFeedResponse.class);
+    }
+
+
+    /**
+     * Get articles/tweets/reddit for a specific coin from the CryptoControl API.
+     *
+     * @param lang     The language to choose from
+     * @param coinName The coin name to get the feed items for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getTopItemsByCoin(Language lang, String coinName, OnResponseHandler<CombinedFeedResponse> callback) {
+        fetch("/all/coin/" + coinName, lang, callback, CombinedFeedResponse.class);
     }
 
 
@@ -227,7 +418,19 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getLatestItemsByCoin(String coinName, OnResponseHandler<CombinedFeedResponse> callback) {
-        fetch("/all/coin/" + coinName + "?latest=true", callback, CombinedFeedResponse.class);
+        fetch("/all/coin/" + coinName + "?latest=true", Language.ENGLISH, callback, CombinedFeedResponse.class);
+    }
+
+
+    /**
+     * Get articles/tweets/reddit for a specific coin from the CryptoControl API.
+     *
+     * @param lang     The language to choose from
+     * @param coinName The coin name to get the feed for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestItemsByCoin(Language lang, String coinName, OnResponseHandler<CombinedFeedResponse> callback) {
+        fetch("/all/coin/" + coinName + "?latest=true", lang, callback, CombinedFeedResponse.class);
     }
 
 

@@ -101,6 +101,7 @@ public class Article {
         private String publishedAt;
         private String title;
         private String url;
+        private String sourceDomain;
 
 
         public String getId() {
@@ -120,6 +121,11 @@ public class Article {
 
         public String getUrl() {
             return url;
+        }
+
+
+        public String getSourceDomain() {
+            return sourceDomain;
         }
     }
 
