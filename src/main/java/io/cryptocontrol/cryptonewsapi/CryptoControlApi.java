@@ -442,7 +442,7 @@ public class CryptoControlApi {
      * @param callback A callback fn returning the response from the CryptoControl API.
      */
     public void getCoinDetails(String coinName, OnResponseHandler<CoinDetail> callback) {
-        fetch("/details/coin/" + coinName, Language.ENGLISH, callback, CombinedFeedResponse.class);
+        fetch("/details/coin/" + coinName, Language.ENGLISH, callback, CoinDetail.class);
     }
 
 
