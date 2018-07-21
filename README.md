@@ -74,6 +74,18 @@ api.getLatestNews(Language.RUSSIAN, new CryptoControlApi.OnResponseHandler<List<
     }
 });
 
+// Get rich metadata (wallets, blockexplorers, twitter handles etc..) for ethereum
+api.getCoinDetails("ethereum", new CryptoControlApi.OnResponseHandler<CoinDetail>() {
+    @Override public void onSuccess(CoinDetail body) {
+        System.out.println(body.getDescription());
+    }
+
+
+    @Override public void onFailure(Exception e) {
+        e.printStackTrace();
+    }
+});
+
 ```
 
 

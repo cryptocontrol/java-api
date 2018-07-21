@@ -78,7 +78,7 @@ public class CryptoControlApi {
 
         try {
             String HOST = proxyURL != null ? proxyURL : "https://cryptocontrol.io/api/v1/public";
-            URL url = new URL(HOST + path + (path.contains("?") ? "&" : "?") + "lang=" + langSlug);
+            URL url = new URL(HOST + path + (path.contains("?") ? "&" : "?") + "language=" + langSlug);
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -432,6 +432,17 @@ public class CryptoControlApi {
      */
     public void getLatestItemsByCoin(Language lang, String coinName, OnResponseHandler<CombinedFeedResponse> callback) {
         fetch("/all/coin/" + coinName + "?latest=true", lang, callback, CombinedFeedResponse.class);
+    }
+
+
+    /**
+     * Get coin summary from the cryptocontrol API
+     *
+     * @param coinName The coin name to get the feed for.
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getCoinDetails(String coinName, OnResponseHandler<CoinDetail> callback) {
+        fetch("/details/coin/" + coinName, Language.ENGLISH, callback, CombinedFeedResponse.class);
     }
 
 
