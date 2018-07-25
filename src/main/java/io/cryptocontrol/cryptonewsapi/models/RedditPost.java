@@ -1,21 +1,44 @@
 package io.cryptocontrol.cryptonewsapi.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
  * @author enamakel@eshe.io
  */
 public class RedditPost {
+    @SerializedName("isSelf")
     private Boolean isSelf;
+
+    @SerializedName("score")
     private Double score;
+
+    @SerializedName("comments")
     private Long comments;
+
+    @SerializedName("upvotes")
     private Long upvotes;
+
+    @SerializedName("downvotes")
     private Number downvotes;
+
+    @SerializedName("description")
     private String description;
+
+    @SerializedName("id")
     private String id;
+
+    @SerializedName("publishedAt")
     private String publishedAt;
+
+    @SerializedName("subreddit")
     private String subreddit;
+
+    @SerializedName("title")
     private String title;
+
+    @SerializedName("url")
     private String url;
 
 

@@ -4,6 +4,9 @@ Java Client - CryptoControl Crypto News Api
 Official Java client for the [CryptoControl.io](https://cryptocontrol.io) API. The CryptoControl java client lets developers access rich formatted articles from crypto news sources from all around the world.
 It also allows developers to get access to a rich database of information (website, coin summary, blockexplorers, extra links etc..) for the top 2000 cryptocurrencies on CoinMarketCap.
 
+Sprecial thanks to our contributors
+- [PrograMonks](https://play.google.com/store/apps/developer?id=PrograMonks&hl=en) for pointing out a serialization issue when using with Progaurd
+
 ## Installation
 Add this dependency into your `pom.xml` file.
 

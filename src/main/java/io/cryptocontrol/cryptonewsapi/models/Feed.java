@@ -1,15 +1,24 @@
 package io.cryptocontrol.cryptonewsapi.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
  * @author enamakel@eshe.io
  */
 public class Feed {
-    Article article;
-    RedditPost reddit;
-    String type;
-    Tweet tweet;
+    @SerializedName("article")
+    private Article article;
+
+    @SerializedName("reddit")
+    private RedditPost reddit;
+
+    @SerializedName("type")
+    private String type;
+
+    @SerializedName("tweet")
+    private Tweet tweet;
 
 
     public String getType() {

@@ -1,5 +1,7 @@
 package io.cryptocontrol.cryptonewsapi.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,18 +9,40 @@ import java.util.List;
  * @author enamakel@eshe.io
  */
 public class Tweet {
+    @SerializedName("isRetweeted")
     private Boolean isRetweeted;
+
+    @SerializedName("favoriteCount")
     private Number favoriteCount;
+
+    @SerializedName("retweetCount")
     private Number retweetCount;
+
+    @SerializedName("id")
     private String id;
+
+    @SerializedName("publishedAt")
     private String publishedAt;
+
+    @SerializedName("text")
     private String text;
+
+    @SerializedName("url")
     private String url;
+
+    @SerializedName("username")
     private String username;
 
+    @SerializedName("hashtags")
     private List<String> hashtags;
+
+    @SerializedName("links")
     private List<String> links;
+
+    @SerializedName("mentions")
     private List<String> mentions;
+
+    @SerializedName("symbols")
     private List<String> symbols;
 
 
