@@ -14,14 +14,14 @@ Add this dependency into your `pom.xml` file.
 <dependency>
     <groupId>io.cryptocontrol</groupId>
     <artifactId>crypto-news-api</artifactId>
-    <version>2.2.0</version>
+    <version>2.2.1</version>
 </dependency>
 ```
 
 or use with gradle
 
 ```
-compile 'io.cryptocontrol:crypto-news-api:2.2.0'
+compile 'io.cryptocontrol:crypto-news-api:2.2.1'
 ```
 
 
