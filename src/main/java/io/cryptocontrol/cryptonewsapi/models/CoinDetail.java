@@ -61,11 +61,9 @@ public class CoinDetail {
         @SerializedName("link")
         private String link;
 
-
-        public String getType() {
-            return type;
+        public Type getType() {
+            return Type.getTypeById(type);
         }
-
 
         public String getName() {
             return name;
@@ -76,5 +74,27 @@ public class CoinDetail {
             return link;
         }
 
+    }
+
+    enum Type{
+        TWITTER("twitter"), WEBSITE("website"),
+        REDDIT("reddit"), GITHUB("github"),
+        UNKNOWN("unknown"), DEFAULT(UNKNOWN.typeId);
+
+        private final String typeId;
+
+        Type(String typeId) {
+            this.typeId = typeId;
+        }
+
+        public static Type getTypeById(String id){
+            for (Type type : values()) {
+                if(id.equalsIgnoreCase(type.typeId)){
+                    return type;
+                }
+            }
+
+            return DEFAULT;
+        }
     }
 }
