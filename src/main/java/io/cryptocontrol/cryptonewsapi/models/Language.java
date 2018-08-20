@@ -5,5 +5,12 @@ package io.cryptocontrol.cryptonewsapi.models;
  */
 public enum Language {
     ENGLISH,
-    RUSSIAN
+    RUSSIAN,
+    GERMAN,
+    SPANISH,
+    ITALIAN,
+    PORTUGUESE,
+    CHINESE,
+    JAPANESE,
+    KOREAN
 }

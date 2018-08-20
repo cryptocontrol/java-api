@@ -73,6 +73,27 @@ public class CryptoControlApi {
             case RUSSIAN:
                 langSlug = "ru";
                 break;
+            case GERMAN:
+                langSlug = "de";
+                break;
+            case SPANISH:
+                langSlug = "es";
+                break;
+            case ITALIAN:
+                langSlug = "it";
+                break;
+            case PORTUGUESE:
+                langSlug = "po";
+                break;
+            case CHINESE:
+                langSlug = "cn";
+                break;
+            case JAPANESE:
+                langSlug = "jp";
+                break;
+            case KOREAN:
+                langSlug = "ko";
+                break;
         }
 
 
