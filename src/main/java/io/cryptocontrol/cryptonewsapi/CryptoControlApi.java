@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.cryptocontrol.cryptonewsapi.exceptions.BadResponseException;
 import io.cryptocontrol.cryptonewsapi.exceptions.InvalidAPIKeyException;
+import io.cryptocontrol.cryptonewsapi.exceptions.NotPremiumException;
 import io.cryptocontrol.cryptonewsapi.models.*;
 
 import java.io.BufferedInputStream;
@@ -25,7 +26,7 @@ public class CryptoControlApi {
     private final String apiKey;
     private String proxyURL = null;
     private final Gson gson = new GsonBuilder().create();
-
+    boolean enableSentiment = false;
 
     /**
      * A simple contructor which sets a API key
@@ -51,6 +52,12 @@ public class CryptoControlApi {
         this.proxyURL = proxyURL;
     }
 
+    /*
+     * function to set sentiment
+     */
+    public void enableSentiment() {
+        enableSentiment = true;
+    }
 
     /**
      * Helper function to make a request to the CryptoControl server.
@@ -99,7 +106,8 @@ public class CryptoControlApi {
 
         try {
             String HOST = proxyURL != null ? proxyURL : "https://cryptocontrol.io/api/v1/public";
-            URL url = new URL(HOST + path + (path.contains("?") ? "&" : "?") + "language=" + langSlug);
+            URL url = new URL(HOST + path + (path.contains("?") ? "&" : "?") + "language=" + langSlug +
+                    "&sentiment=" + enableSentiment);
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -118,6 +126,8 @@ public class CryptoControlApi {
                     break;
                 case 401:
                     throw new InvalidAPIKeyException();
+                case 405:
+                    throw new NotPremiumException();
                 default:
                     throw new BadResponseException();
             }

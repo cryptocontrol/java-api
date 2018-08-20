@@ -25,6 +25,7 @@ public class ApiTest {
 //            }
 //        });
 //
+        api.enableSentiment();
         api.getLatestNews(Language.PORTUGUESE, new CryptoControlApi.OnResponseHandler<List<Article>>() {
             @Override public void onSuccess(List<Article> body) {
                   for (Article article : body){

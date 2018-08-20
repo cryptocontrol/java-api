@@ -57,6 +57,21 @@ public class Article {
     @SerializedName("similarArticles")
     private List<SimilarArticle> similarArticles = new ArrayList<>();
 
+    @SerializedName("sentiment")
+    private String sentiment;
+
+    @SerializedName("sentimentScore")
+    private Double sentimentScore;
+
+
+    public String getSentiment() {
+        return sentiment;
+    }
+
+
+    public Double getSentimentScore() {
+        return sentimentScore;
+    }
 
     public String getId() {
         return _id;
