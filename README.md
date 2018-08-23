@@ -21,7 +21,7 @@ Add this dependency into your `pom.xml` file.
 or use with gradle
 
 ```
-compile 'io.cryptocontrol:crypto-news-api:2.2.1'
+compile 'io.cryptocontrol:crypto-news-api:2.3.0'
 ```
 
 
