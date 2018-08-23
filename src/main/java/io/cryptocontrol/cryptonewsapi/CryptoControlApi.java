@@ -116,7 +116,7 @@ public class CryptoControlApi {
             urlConnection.setRequestProperty("x-api-key", apiKey);
 
             // Set the user agent
-            String USER_AGENT = "CryptoControl Java API v2.1.0";
+            String USER_AGENT = "CryptoControl Java API v2.3.0";
             urlConnection.setRequestProperty("user-agent", USER_AGENT);
 
             int code = urlConnection.getResponseCode();
