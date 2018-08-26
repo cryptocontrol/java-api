@@ -75,8 +75,16 @@ public class Article {
     }
 
 
-    public Double getSentimentScore() {
-        return sentimentScore;
+    public Double getSentimentPositiveScore() {
+        return sentimentPositiveScore;
+    }
+
+    public Double getSentimentNegativeScore() {
+        return sentimentNegativeScore;
+    }
+
+    public Double getSentimentNeutralScore() {
+        return sentimentNeutralScore;
     }
 
     public String getId() {
