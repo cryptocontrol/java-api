@@ -60,8 +60,14 @@ public class Article {
     @SerializedName("sentiment")
     private String sentiment;
 
-    @SerializedName("sentimentScore")
-    private Double sentimentScore;
+    @SerializedName("sentimentPositiveScore")
+    private Double sentimentPositiveScore;
+
+    @SerializedName("sentimentNegativeScore")
+    private Double sentimentNegativeScore;
+
+    @SerializedName("sentimentNeutralScore")
+    private Double sentimentNeutralScore;
 
 
     public String getSentiment() {
