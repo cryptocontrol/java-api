@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import io.cryptocontrol.cryptonewsapi.exceptions.BadResponseException;
 import io.cryptocontrol.cryptonewsapi.exceptions.InvalidAPIKeyException;
 import io.cryptocontrol.cryptonewsapi.exceptions.NotPremiumException;
+import io.cryptocontrol.cryptonewsapi.exceptions.RateLimitException;
 import io.cryptocontrol.cryptonewsapi.models.*;
 
 import java.io.BufferedInputStream;
@@ -26,10 +27,11 @@ public class CryptoControlApi {
     private final String apiKey;
     private String proxyURL = null;
     private final Gson gson = new GsonBuilder().create();
-    boolean enableSentiment = false;
+    private boolean enableSentiment = false;
+
 
     /**
-     * A simple contructor which sets a API key
+     * A simple constructor which sets a API key
      *
      * @param apiKey The CryptoControl.io API key
      */
@@ -52,12 +54,14 @@ public class CryptoControlApi {
         this.proxyURL = proxyURL;
     }
 
+
     /*
      * function to set sentiment
      */
     public void enableSentiment() {
         enableSentiment = true;
     }
+
 
     /**
      * Helper function to make a request to the CryptoControl server.
@@ -116,7 +120,7 @@ public class CryptoControlApi {
             urlConnection.setRequestProperty("x-api-key", apiKey);
 
             // Set the user agent
-            String USER_AGENT = "CryptoControl Java API v2.3.0";
+            String USER_AGENT = "CryptoControl Java API v2.5.0";
             urlConnection.setRequestProperty("user-agent", USER_AGENT);
 
             int code = urlConnection.getResponseCode();
@@ -124,6 +128,8 @@ public class CryptoControlApi {
             switch (code) {
                 case 200:
                     break;
+                case 429:
+                    throw new RateLimitException();
                 case 401:
                     throw new InvalidAPIKeyException();
                 case 405:
@@ -209,6 +215,27 @@ public class CryptoControlApi {
      */
     public void getTopNewsByCategory(Language lang, OnResponseHandler<CategoryResponse> callback) {
         fetch("/news/category", lang, callback, CategoryResponse.class);
+    }
+
+
+    /**
+     * Get latest news articles grouped by category from the CryptoControl News API.
+     *
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestNewsByCategory(OnResponseHandler<CategoryResponse> callback) {
+        getLatestNewsByCategory(Language.ENGLISH, callback);
+    }
+
+
+    /**
+     * Get latest news articles grouped by category from the CryptoControl News API.
+     *
+     * @param lang     The language to choose from
+     * @param callback A callback fn returning the response from the CryptoControl API.
+     */
+    public void getLatestNewsByCategory(Language lang, OnResponseHandler<CategoryResponse> callback) {
+        fetch("/news/category?latest=true", lang, callback, CategoryResponse.class);
     }
 
 
