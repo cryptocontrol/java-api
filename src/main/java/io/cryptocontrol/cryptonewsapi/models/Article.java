@@ -269,6 +269,9 @@ public class Article {
         @SerializedName("url")
         private String url;
 
+        @SerializedName("favicon")
+        private String favicon;
+
 
         public String getId() {
             return _id;
@@ -282,6 +285,11 @@ public class Article {
 
         public String getUrl() {
             return url;
+        }
+
+
+        public String getFavicon() {
+            return favicon;
         }
     }
 
