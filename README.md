@@ -7,6 +7,14 @@ It also allows developers to get access to a rich database of information (websi
 Sprecial thanks to our contributors
 - [PrograMonks](https://play.google.com/store/apps/developer?id=PrograMonks&hl=en) for pointing out a serialization issue when using with Progaurd
 
+
+## Features
+With the CryptoControl News APIs you can:
+- Get news/tweets/reddit posts for the top/latest news 2000 coins
+- Get the favicon of every news source for every article
+- Fetch the last 2500 articles using pagination (Premium feature)
+- Get sentiment indicators for a news article (Premium feature)
+
 ## Installation
 Add this dependency into your `pom.xml` file.
 
@@ -14,14 +22,14 @@ Add this dependency into your `pom.xml` file.
 <dependency>
     <groupId>io.cryptocontrol</groupId>
     <artifactId>crypto-news-api</artifactId>
-    <version>2.5.0</version>
+    <version>3.0.0</version>
 </dependency>
 ```
 
 or use with gradle
 
 ```
-compile 'io.cryptocontrol:crypto-news-api:2.5.0'
+compile 'io.cryptocontrol:crypto-news-api:3.0.0'
 ```
 
 
@@ -32,11 +40,31 @@ First make sure that you've recieved an API key by visiting [https://cryptocontr
 // Connect to the CryptoControl API
 CryptoControlApi api = new CryptoControlApi("API_KEY");
 
-// Connect to a self-hosted proxy server (to improve performance) that points to cryptocontrol.io
+// Connect to a self-hosted proxy server (which can cache requests) that points to cryptocontrol.io
 CryptoControlApi proxyApi = new CryptoControlApi("API_KEY", "http://cryptocontrol_proxy/api/v1/public");
+```
 
+All api functions take in a query object which is used to define how to query the CryptoControl news. The query object can be defined in many ways.
+
+```java
+
+// Prepares a query for "bitcoin" related results in russian
+Query query1 = new Query("bitcoin", Languages.Russian);
+
+Query query2 = new Query().setCoin("bitcoin").setLanguage(Languages.Russian);
+
+Query query3 = new Query()
+query3.setCoin("bitcoin")
+query3.setLanguage(Languages.Russian);
+
+```
+
+Once a query object is created, you can pass it to any of the endpoints to get the results that you want.
+
+```java
 // Enable sentiment datapoints
 api.enableSentiment();
+
 
 // Get top crypto news
 api.getTopNews(new CryptoControlApi.OnResponseHandler<List<Article>>() {
