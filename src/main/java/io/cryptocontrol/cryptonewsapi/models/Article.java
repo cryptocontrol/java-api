@@ -42,6 +42,9 @@ public class Article {
     @SerializedName("thumbnail")
     private String thumbnail;
 
+    @SerializedName("thumbnailMedium")
+    private String thumbnailMedium;
+
     @SerializedName("title")
     private String title;
 
@@ -79,13 +82,16 @@ public class Article {
         return sentimentPositiveScore;
     }
 
+
     public Double getSentimentNegativeScore() {
         return sentimentNegativeScore;
     }
 
+
     public Double getSentimentNeutralScore() {
         return sentimentNeutralScore;
     }
+
 
     public String getId() {
         return _id;
@@ -119,6 +125,11 @@ public class Article {
 
     public String getPrimaryCategory() {
         return primaryCategory;
+    }
+
+
+    public String getThumbnailMedium() {
+        return thumbnailMedium;
     }
 
 
